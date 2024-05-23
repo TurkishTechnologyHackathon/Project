@@ -11,4 +11,5 @@ public interface FlightService {
     List<Flight> getAllFlights();
     Flight createFlight(RequestCreatingFlightDto creatingFlightDto);
     List<Flight> searchFlights(RequestSearchingFlightDto searchingFlightDto);
+    Flight searchCheapestFlight(RequestSearchingFlightDto searchingFlightDto);
 }

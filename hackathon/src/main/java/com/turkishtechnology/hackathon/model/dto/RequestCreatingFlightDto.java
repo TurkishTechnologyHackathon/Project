@@ -15,4 +15,6 @@ public class RequestCreatingFlightDto {
     private String arrivalDate;
     private String duration;
     private String flightTime;
+    private double price;
+    private int numberOfSeats;
 }

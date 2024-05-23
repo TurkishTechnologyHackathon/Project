@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "flights")
-public class Flight {
+public class Flight implements Comparable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +36,24 @@ public class Flight {
     private LocalDate arrivalDate;
     private LocalTime flightTime;
     private String duration;
+
+    @Column(nullable = true)
     private double price;
+
+    @Column
+    private int numberOfSeats;
+
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public void setNumberOfSeats(int numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
+    }
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "flights", fetch = FetchType.LAZY)
+	private List<FlightBooking> bookings = new ArrayList<FlightBooking>();
 
     public double getPrice() {
         return price;
@@ -44,10 +62,6 @@ public class Flight {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "flights", fetch = FetchType.LAZY)
-	private List<FlightBooking> bookings = new ArrayList<FlightBooking>();
 
     public Long getId() {
         return id;
@@ -112,6 +126,13 @@ public class Flight {
 
     public void setBookings(List<FlightBooking> bookings) {
         this.bookings = bookings;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        Flight f = (Flight) o;
+        return Double.compare(price, f.getPrice());
     }
 
     

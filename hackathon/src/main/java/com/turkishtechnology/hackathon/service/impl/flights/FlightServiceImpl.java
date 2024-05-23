@@ -1,5 +1,6 @@
 package com.turkishtechnology.hackathon.service.impl.flights;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,26 @@ public class FlightServiceImpl implements FlightService {
         flight.setArrivalDate(DateUtil.toLocalDateTime(creatingFlightDto.getArrivalDate()));
         flight.setFlightTime(DateUtil.toLocalTime(creatingFlightDto.getFlightTime()));
         flight.setDuration(creatingFlightDto.getDuration());
+        flight.setPrice(creatingFlightDto.getPrice());
+        flight.setNumberOfSeats(creatingFlightDto.getNumberOfSeats());
         return flightRepository.save(flight);
     }
 
     @Override
     public List<Flight> searchFlights(RequestSearchingFlightDto searchingFlightDto) {
-        
-        return flightRepository.findByDepartureDateBefore(DateUtil.toLocalDateTime(searchingFlightDto.getDepartureDateEnd()));
+
+        return flightRepository.findByDepartureDateBetween(DateUtil.toLocalDateTime(searchingFlightDto.getDepartureDateStart()), 
+                                                    DateUtil.toLocalDateTime(searchingFlightDto.getDepartureDateEnd()));
+    }
+
+    
+    public Flight searchCheapestFlight(RequestSearchingFlightDto searchingFlightDto) {
+        List<Flight> foundedFlights = searchFlights(searchingFlightDto);
+        return foundedFlights
+            .stream()
+            .min(Comparator.comparing(Flight::getPrice))
+            .get();
+
     }
 
 }

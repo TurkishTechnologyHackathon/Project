@@ -33,8 +33,8 @@ public class FlightsController {
     }
     
     @GetMapping("/search")
-    public ResponseEntity<List<Flight>> searchFlights(@RequestBody RequestSearchingFlightDto searchingFlightDto) {
-        return ResponseEntity.ok(flightService.searchFlights(searchingFlightDto));
+    public ResponseEntity<Flight> searchCheapestFlights(@RequestBody RequestSearchingFlightDto searchingFlightDto) {
+        return ResponseEntity.ok(flightService.searchCheapestFlight(searchingFlightDto));
     }
     
 

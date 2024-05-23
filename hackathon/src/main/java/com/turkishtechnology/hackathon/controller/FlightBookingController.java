@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turkishtechnology.hackathon.exceptions.flights.NoRemainingSeatsException;
 import com.turkishtechnology.hackathon.model.dto.RequestBookingDto;
 import com.turkishtechnology.hackathon.model.entity.FlightBooking;
 import com.turkishtechnology.hackathon.service.booking.FlightBookingService;
@@ -26,7 +27,7 @@ public class FlightBookingController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<FlightBooking> createBooking(@RequestBody RequestBookingDto requestBookingDto) {
+    public ResponseEntity<FlightBooking> createBooking(@RequestBody RequestBookingDto requestBookingDto) throws NoRemainingSeatsException {
         return ResponseEntity.ok(bookingService.createFlightBooking(requestBookingDto.getPassengerId(), requestBookingDto.getFlightId()));
         
     }

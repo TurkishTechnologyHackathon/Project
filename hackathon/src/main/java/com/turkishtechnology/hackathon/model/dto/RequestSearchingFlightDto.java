@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestSearchingFlightDto {
+
+    private Long passengerId;
+    private String flightType;
     
     private String departureDateStart;
     private String departureDateEnd;

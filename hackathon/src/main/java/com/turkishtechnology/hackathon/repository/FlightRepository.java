@@ -11,4 +11,6 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     
     List<Flight> findByDepartureDateBefore(LocalDate departureDate);
     List<Flight> findByDepartureDateAfter(LocalDate departureDate);
+    List<Flight> findByDepartureDateBetween(LocalDate departureDateStart, LocalDate departureDateEnd);
+    List<Flight> findByArrivalDateBetween(LocalDate arrivalDateStart, LocalDate arrivalDateEnd);
 }
