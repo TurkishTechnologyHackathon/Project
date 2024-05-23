@@ -19,8 +19,7 @@ public class PassangerServiceImpl implements PassangerService {
 
     @Override
     public Passanger getPassangerById(Long id) {
-        return passangerRepository.findById(id)
-                        .orElseThrow();
+        return passangerRepository.findById(id).get();
     }
 
     @Override

@@ -12,13 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class FlightBooking {
     
@@ -32,4 +26,28 @@ public class FlightBooking {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "booking_flights", joinColumns = @JoinColumn(name = "booking_id"), inverseJoinColumns = @JoinColumn(name = "flight_id"))
     private Set<Flight> flights;
+
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Passanger getPassenger() {
+		return passanger;
+	}
+
+	public void setPassenger(Passanger passanger) {
+		this.passanger = passanger;
+	}
+
+	public Set<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(Set<Flight> flights) {
+		this.flights = flights;
+	}
 }
