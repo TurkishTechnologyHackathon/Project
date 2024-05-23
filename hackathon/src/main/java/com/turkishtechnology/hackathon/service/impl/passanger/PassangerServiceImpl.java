@@ -46,5 +46,11 @@ public class PassangerServiceImpl implements PassangerService {
         passangerRepository.save(existingPassanger);
         return existingPassanger;
     }
+
+    @Override
+    public boolean checkCredentials(Passanger passanger) {
+        Passanger foundedPassanger = passangerRepository.findByEmail(passanger.getEmail()).get();
+        return passanger.getPassword().equalsIgnoreCase(foundedPassanger.getPassword());
+    }
     
 }

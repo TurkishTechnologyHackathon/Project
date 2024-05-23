@@ -6,30 +6,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import com.turkishtechnology.hackathon.model.entity.Passanger;
 import com.turkishtechnology.hackathon.service.passanger.PassangerService;
 
-
-
 @Controller
-public class LoginController {
-
+public class RegisterController {
+    
     @Autowired
     private PassangerService passangerService;
-    
-    @GetMapping("/login")
-    public String createLoginForm(Model model) {
+
+    @GetMapping("/register")
+    public String createRegisterForm(Model model) {
         Passanger passanger = new Passanger();
-        model.addAttribute("passenger", passanger);
-        return "login";
+        model.addAttribute("new_passenger", passanger);
+        return "register";
     }
 
-    @PostMapping("/login")
-    public String login(@ModelAttribute("passenger") Passanger passanger) {
-        if (passangerService.checkCredentials(passanger)) {
-            return "home_page";
-        }
-        return "redirect:/register";
-    }    
-    
+    @PostMapping("/register")
+    public String savePassenger(@ModelAttribute("new_passenger") Passanger passanger) {
+        passangerService.createPassanger(passanger);
+        return "home_page";
+    }
 }

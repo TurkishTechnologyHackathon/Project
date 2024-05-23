@@ -11,4 +11,5 @@ public interface PassangerService {
     Passanger createPassanger(Passanger passanger);
     void deletePassangerById(Long id);
     Passanger updatePassanger(Passanger passanger);
+    boolean checkCredentials(Passanger passanger);
 }
