@@ -1,14 +1,13 @@
 package com.turkishtechnology.hackathon.model.entity;
 
-import java.time.LocalDate;
-import java.util.Set;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,20 +17,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "flights")
-public class Flight {
-    
+@Table(name = "wallets")
+public class Wallet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Long walletId;
     
-    private String departure;
-    private String arrival;
-    private LocalDate departureDate;
-    private LocalDate arrivalDate;
+    @Column
+    private double balance;
 
-    @ManyToMany(mappedBy = "flights", fetch = FetchType.LAZY)
-	private Set<FlightBooking> bookings;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "passenger_id", referencedColumnName = "id")
+    private Passanger passanger;
 
 }
