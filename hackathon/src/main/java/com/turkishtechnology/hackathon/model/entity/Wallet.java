@@ -1,5 +1,7 @@
 package com.turkishtechnology.hackathon.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,10 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,8 +27,42 @@ public class Wallet {
     @Column
     private double balance;
 
+    
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "passenger_id", referencedColumnName = "id")
     private Passanger passanger;
+
+
+    public Long getWalletId() {
+        return walletId;
+    }
+
+
+    public void setWalletId(Long walletId) {
+        this.walletId = walletId;
+    }
+
+
+    public double getBalance() {
+        return balance;
+    }
+
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+
+    @JsonBackReference
+    public Passanger getPassanger() {
+        return passanger;
+    }
+
+
+    public void setPassanger(Passanger passanger) {
+        this.passanger = passanger;
+    }
+
+    
 
 }

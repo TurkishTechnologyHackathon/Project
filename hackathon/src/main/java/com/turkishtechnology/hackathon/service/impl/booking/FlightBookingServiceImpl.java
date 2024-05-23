@@ -1,8 +1,6 @@
 package com.turkishtechnology.hackathon.service.impl.booking;
 
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.stereotype.Service;
 
 import com.turkishtechnology.hackathon.model.entity.Flight;
@@ -42,7 +40,7 @@ public class FlightBookingServiceImpl implements FlightBookingService {
         booking.setPassenger(passangerRepository.findById(passengerId).get());
 
         Flight flight = flightRepository.findById(flightId).get();
-        Set<Flight> flights = booking.getFlights();
+        List<Flight> flights = booking.getFlights();
         flights.add(flight);
 
         // Set all flights after inserting the new one

@@ -1,6 +1,10 @@
 package com.turkishtechnology.hackathon.model.entity;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,7 +29,7 @@ public class FlightBooking {
     
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "booking_flights", joinColumns = @JoinColumn(name = "booking_id"), inverseJoinColumns = @JoinColumn(name = "flight_id"))
-    private Set<Flight> flights;
+    private List<Flight> flights = new ArrayList<Flight>();
 
     public Long getId() {
 		return id;
@@ -35,6 +39,7 @@ public class FlightBooking {
 		this.id = id;
 	}
 
+	@JsonManagedReference
 	public Passanger getPassenger() {
 		return passanger;
 	}
@@ -43,11 +48,14 @@ public class FlightBooking {
 		this.passanger = passanger;
 	}
 
-	public Set<Flight> getFlights() {
+	@JsonBackReference
+	public List<Flight> getFlights() {
 		return flights;
 	}
 
-	public void setFlights(Set<Flight> flights) {
+	public void setFlights(List<Flight> flights) {
 		this.flights = flights;
 	}
+
+	
 }
